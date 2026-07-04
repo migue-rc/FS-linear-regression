@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Miguel R.">
-<meta name="dcterms.date" content="2026-04-22">
+<meta name="dcterms.date" content="2026-07-04">
 <meta name="description" content="A comprehensive guide to understanding and building linear regression from scratch. Explores the underlying math, gradient descent intuition, and interactive visualizations of the learning process.">
 
 <title>Linear Regression From Scratch</title>
@@ -83,9 +83,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-3f230b53dc93e4a04bf4a3505d77a42a.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-0738663c7c037cf665a86e7eb60c4439.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-9f74c3406a507f2d1f67bd7731720ed3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-0738663c7c037cf665a86e7eb60c4439.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-22e386d673eb27a037a9ab8590791d54.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-df7de8fec9041e4cf553be1fa0c04d3f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-22e386d673eb27a037a9ab8590791d54.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -4040,6 +4040,17 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="local-style.css">
+<meta property="og:title" content="Linear Regression From Scratch">
+<meta property="og:description" content="A comprehensive guide to understanding and building linear regression from scratch. Explores the underlying math, gradient descent intuition, and interactive visualizations of the learning process.">
+<meta property="og:image" content="https://migue-rc.github.io/FS-linear-regression/index_files/figure-html/cell-3-output-1.png">
+<meta property="og:image:height" content="470">
+<meta property="og:image:width" content="630">
+<meta name="twitter:title" content="Linear Regression From Scratch">
+<meta name="twitter:description" content="A comprehensive guide to understanding and building linear regression from scratch. Explores the underlying math, gradient descent intuition, and interactive visualizations of the learning process.">
+<meta name="twitter:image" content="https://migue-rc.github.io/FS-linear-regression/index_files/figure-html/cell-3-output-1.png">
+<meta name="twitter:image-height" content="470">
+<meta name="twitter:image-width" content="630">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -4244,18 +4255,10 @@ window.Quarto = {
   <li><a href="#manually-calculating-it" id="toc-manually-calculating-it" class="nav-link" data-scroll-target="#manually-calculating-it">Manually calculating it</a></li>
   </ul></li>
   <li><a href="#gradient-descent-the-intuition" id="toc-gradient-descent-the-intuition" class="nav-link" data-scroll-target="#gradient-descent-the-intuition">Gradient Descent: The Intuition</a></li>
-  <li><a href="#the-math-behind-the-gradients" id="toc-the-math-behind-the-gradients" class="nav-link" data-scroll-target="#the-math-behind-the-gradients">The Math Behind the Gradients</a>
-  <ul class="collapse">
-  <li><a href="#gradient-with-respect-to-m" id="toc-gradient-with-respect-to-m" class="nav-link" data-scroll-target="#gradient-with-respect-to-m">Gradient with respect to <span class="math inline">\(m\)</span>:</a></li>
-  <li><a href="#gradient-with-respect-to-b" id="toc-gradient-with-respect-to-b" class="nav-link" data-scroll-target="#gradient-with-respect-to-b">Gradient with respect to <span class="math inline">\(b\)</span>:</a></li>
-  </ul></li>
+  <li><a href="#the-math-behind-the-gradients" id="toc-the-math-behind-the-gradients" class="nav-link" data-scroll-target="#the-math-behind-the-gradients">The Math Behind the Gradients</a></li>
   <li><a href="#visualizing-convergence-and-stagnation" id="toc-visualizing-convergence-and-stagnation" class="nav-link" data-scroll-target="#visualizing-convergence-and-stagnation">Visualizing Convergence and Stagnation</a>
   <ul class="collapse">
-  <li><a href="#the-update-function" id="toc-the-update-function" class="nav-link" data-scroll-target="#the-update-function">The update function</a>
-  <ul class="collapse">
-  <li><a href="#first-epoch" id="toc-first-epoch" class="nav-link" data-scroll-target="#first-epoch">First Epoch</a></li>
-  <li><a href="#second-and-third-epoch" id="toc-second-and-third-epoch" class="nav-link" data-scroll-target="#second-and-third-epoch">Second and Third Epoch</a></li>
-  </ul></li>
+  <li><a href="#the-update-function" id="toc-the-update-function" class="nav-link" data-scroll-target="#the-update-function">The update function</a></li>
   </ul></li>
   <li><a href="#takeaways" id="toc-takeaways" class="nav-link" data-scroll-target="#takeaways">Takeaways</a></li>
   </ul>
@@ -4293,7 +4296,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 22, 2026</p>
+      <p class="date">July 4, 2026</p>
     </div>
   </div>
   
@@ -4305,9 +4308,9 @@ window.Quarto = {
 </header>
 
 
-<p>I wanted to do the most simplest linear regression algorithm possible.</p>
-<section id="what-is-linear-regression" class="level1">
-<h1>What is Linear Regression</h1>
+<p>I wanted to build the simplest possible linear regression, from scratch.</p>
+<section id="what-is-linear-regression" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-linear-regression">What is Linear Regression</h2>
 <ul>
 <li>Linear Regression is a supervised learning algorithm that attempts to model the relationship between a scalar dependent variable y and one or more independent variables X.</li>
 </ul>
@@ -4334,8 +4337,8 @@ window.Quarto = {
 </details>
 </div>
 </section>
-<section id="the-data" class="level1">
-<h1>The Data</h1>
+<section id="the-data" class="level2">
+<h2 class="anchored" data-anchor-id="the-data">The Data</h2>
 <p>We are just creating 5 data points for demonstration purposes. Let’s say we have data for hours worked <span class="math inline">\(x\)</span> and money earned <span class="math inline">\(y\)</span>.</p>
 <table class="caption-top table">
 <thead>
@@ -4410,8 +4413,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="loss-function" class="level1">
-<h1>Loss Function</h1>
+<section id="loss-function" class="level2">
+<h2 class="anchored" data-anchor-id="loss-function">Loss Function</h2>
 <p>We need to establish our loss metric. In this case, we are going to use the mean squared error (MSE) as our loss function.</p>
 <p>The MSE formula is given by: <span class="math display">\[
 \text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
@@ -4422,8 +4425,8 @@ window.Quarto = {
 <li><span class="math inline">\(y_i\)</span> is the true value,</li>
 <li><span class="math inline">\(\hat{y}_i\)</span> is the predicted value.</li>
 </ul>
-<section id="manually-calculating-it" class="level2">
-<h2 class="anchored" data-anchor-id="manually-calculating-it">Manually calculating it</h2>
+<section id="manually-calculating-it" class="level3">
+<h3 class="anchored" data-anchor-id="manually-calculating-it">Manually calculating it</h3>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 8%">
@@ -4496,8 +4499,8 @@ window.Quarto = {
 <p>then, <span class="math display">\[MSE = \frac{1 + 1 + 0 + 49 + 36}{ 5} = 17.40\]</span></p>
 </section>
 </section>
-<section id="gradient-descent-the-intuition" class="level1">
-<h1>Gradient Descent: The Intuition</h1>
+<section id="gradient-descent-the-intuition" class="level2">
+<h2 class="anchored" data-anchor-id="gradient-descent-the-intuition">Gradient Descent: The Intuition</h2>
 <p>Now that we have a way to measure how “wrong” our line is (the MSE), we need a systematic way to make it “right.”</p>
 <p>Imagine you are standing on a mountain in a thick fog. Your goal is to reach the lowest point in the valley, but you can’t see the path. What would you do? You would likely feel the slope of the ground with your feet and take a small step in the direction where the ground slopes downward.</p>
 <p>In linear regression, our “mountain” is the <strong>Loss Surface</strong>. The altitude is our MSE, and our coordinates are the parameters <span class="math inline">\(m\)</span> and <span class="math inline">\(b\)</span>. <strong>Gradient Descent</strong> is the process of calculating the slope (the gradient) at our current position and taking steps “downhill” to minimize the loss.</p>
@@ -4505,17 +4508,17 @@ window.Quarto = {
 <li><strong>Learning Rate</strong>: This is our “step size.” If it’s too large, we might overstep the valley. If it’s too small, it will take forever to reach the bottom.</li>
 </ul>
 </section>
-<section id="the-math-behind-the-gradients" class="level1">
-<h1>The Math Behind the Gradients</h1>
+<section id="the-math-behind-the-gradients" class="level2">
+<h2 class="anchored" data-anchor-id="the-math-behind-the-gradients">The Math Behind the Gradients</h2>
 <p>To find the direction of the steepest descent, we use <strong>Partial Derivatives</strong>. We want to know how the MSE changes when we nudge <span class="math inline">\(m\)</span> or <span class="math inline">\(b\)</span>.</p>
 <p>Recall our MSE formula: <span class="math display">\[\text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y_i - (mx_i + b))^2\]</span></p>
 <p>Using the <strong>Chain Rule</strong>, we can derive the gradients for <span class="math inline">\(m\)</span> and <span class="math inline">\(b\)</span>:</p>
-<section id="gradient-with-respect-to-m" class="level3">
-<h3 class="anchored" data-anchor-id="gradient-with-respect-to-m">Gradient with respect to <span class="math inline">\(m\)</span>:</h3>
+<section id="gradient-with-respect-to-m" class="level4">
+<h4 class="anchored" data-anchor-id="gradient-with-respect-to-m">Gradient with respect to <span class="math inline">\(m\)</span>:</h4>
 <p><span class="math display">\[\frac{\partial \text{MSE}}{\partial m} = \frac{2}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i) \cdot (-x_i) = - \frac{2}{n} \sum_{i=1}^{n} x_i(y_i - \hat{y}_i)\]</span></p>
 </section>
-<section id="gradient-with-respect-to-b" class="level3">
-<h3 class="anchored" data-anchor-id="gradient-with-respect-to-b">Gradient with respect to <span class="math inline">\(b\)</span>:</h3>
+<section id="gradient-with-respect-to-b" class="level4">
+<h4 class="anchored" data-anchor-id="gradient-with-respect-to-b">Gradient with respect to <span class="math inline">\(b\)</span>:</h4>
 <p><span class="math display">\[\frac{\partial \text{MSE}}{\partial b} = \frac{2}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i) \cdot (-1) = - \frac{2}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)\]</span></p>
 <p>In our code below, these are represented as <code>dm</code> and <code>db</code>. Notice how <code>np.mean</code> handles the <span class="math inline">\(\frac{1}{n} \sum\)</span> part of the equation!</p>
 <div id="7070a04d6bf9a72b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-04-08T21:31:21.798304Z&quot;,&quot;start_time&quot;:&quot;2026-04-08T21:31:21.788178Z&quot;}}" data-execution_count="4">
@@ -4569,8 +4572,8 @@ Final Slope: 4.2550, Final Intercept: 56.5754</code></pre>
 </div>
 </section>
 </section>
-<section id="visualizing-convergence-and-stagnation" class="level1">
-<h1>Visualizing Convergence and Stagnation</h1>
+<section id="visualizing-convergence-and-stagnation" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-convergence-and-stagnation">Visualizing Convergence and Stagnation</h2>
 <p>We can plot the <code>loss_history</code> to see how the algorithm successfully minimized the error over time.</p>
 <p>Notice that at the beginning, the loss drops <strong>drastically</strong>. This is because we are far from the optimal solution, and the gradients are large. However, as we approach the bottom of the valley, the improvements become <strong>marginal</strong>.</p>
 <p>Passing a certain point (often called <em>convergence</em>), the model stops having good improvement, and further training yields insignificant gains. This is why we don’t need to train for an infinite number of epochs!</p>
@@ -4608,8 +4611,8 @@ if (outputEl) {{
                         })                };            </script>        </div>
 </div>
 </div>
-<section id="the-update-function" class="level2">
-<h2 class="anchored" data-anchor-id="the-update-function">The update function</h2>
+<section id="the-update-function" class="level3">
+<h3 class="anchored" data-anchor-id="the-update-function">The update function</h3>
 <p>This is how we find a better value for <span class="math inline">\(m\)</span> and <span class="math inline">\(b\)</span>.</p>
 <p>in simple terms, we identify the direction where we can improve, then we move to that direction at the rate of the <code>learning_rate</code>. as an example, we are going to manually calculate the first three iterations, and our starting point is <span class="math inline">\(m = 0\)</span> and <span class="math inline">\(b = 0\)</span></p>
 <div class="cell" data-layout-align="default">
@@ -4630,8 +4633,8 @@ if (outputEl) {{
 </div>
 </div>
 </div>
-<section id="first-epoch" class="level3">
-<h3 class="anchored" data-anchor-id="first-epoch">First Epoch</h3>
+<section id="first-epoch" class="level4">
+<h4 class="anchored" data-anchor-id="first-epoch">First Epoch</h4>
 <p>The first epoch prediction is all <span class="math inline">\(0\)</span>.</p>
 <table class="caption-top table">
 <thead>
@@ -4684,13 +4687,13 @@ if (outputEl) {{
 <p><span class="math inline">\(dm = -2 \times 389 = -778\)</span></p>
 <p><span class="math inline">\(db = -2 \times 77 = -154\)</span></p>
 <p><span class="math inline">\(m_{new} = m - \text{learning rate} * dm = 0 - 0.01\times(-778) = 7.78\)</span> <span class="math inline">\(b_{new} = b - \text{learning rate} * db = 0 - 0.01\times(-154) = 1.54\)</span></p>
-<section id="calculating-the-loss" class="level4">
-<h4 class="anchored" data-anchor-id="calculating-the-loss">Calculating the Loss</h4>
+<section id="calculating-the-loss" class="level5">
+<h5 class="anchored" data-anchor-id="calculating-the-loss">Calculating the Loss</h5>
 <p><span class="math inline">\(\frac{65^2+70^2+75^2+85^2+90^2}{5} = 6015\)</span></p>
 </section>
 </section>
-<section id="second-and-third-epoch" class="level3">
-<h3 class="anchored" data-anchor-id="second-and-third-epoch">Second and Third Epoch</h3>
+<section id="second-and-third-epoch" class="level4">
+<h4 class="anchored" data-anchor-id="second-and-third-epoch">Second and Third Epoch</h4>
 <p>For the following iterations, the steps remain identical, but our starting weights and predictions change as we learn.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
@@ -4704,8 +4707,8 @@ if (outputEl) {{
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<section id="second-epoch" class="level3">
-<h3 class="anchored" data-anchor-id="second-epoch">Second Epoch</h3>
+<section id="second-epoch" class="level4">
+<h4 class="anchored" data-anchor-id="second-epoch">Second Epoch</h4>
 <p>We use the updated <span class="math inline">\(m = 7.78\)</span> and <span class="math inline">\(b = 1.54\)</span></p>
 <p><span class="math display">\[\text{point } a \text{, our } \hat{y} = 7.78\times2 + 1.54 = 17.1\]</span> <span class="math display">\[\text{point } b \text{, our } \hat{y} = 7.78\times3 + 1.54 = 24.88\]</span> <span class="math display">\[\text{point } c \text{, our } \hat{y} = 7.78\times5 + 1.54 = 40.44\]</span> <span class="math display">\[\text{point } d \text{, our } \hat{y} = 7.78\times6 + 1.54 = 48.22\]</span> <span class="math display">\[\text{point } e \text{, our } \hat{y} = 7.78\times8 + 1.54 = 63.78\]</span></p>
 <table class="caption-top table">
@@ -4766,14 +4769,14 @@ if (outputEl) {{
 <p><span class="math inline">\(db = -2 \times 38.116 = -76.23\)</span></p>
 <p><span class="math inline">\(m_{new} = m - \text{learning rate} * dm = 7.78 - 0.01\times(-333.76) = 11.11\)</span></p>
 <p><span class="math inline">\(b_{new} = b - \text{learning rate} * db = 1.54 - 0.01\times(-76.23) = 2.30\)</span></p>
-<section id="calculating-the-loss-1" class="level4">
-<h4 class="anchored" data-anchor-id="calculating-the-loss-1">Calculating the Loss</h4>
+<section id="calculating-the-loss-1" class="level5">
+<h5 class="anchored" data-anchor-id="calculating-the-loss-1">Calculating the Loss</h5>
 <p><span class="math inline">\(\frac{47.9^2+45.12^2+34.56^2+36.78^2+26.22^2}{5} = 1512.97\)</span></p>
 <p>so the difference between the first loss and this one is <span class="math display">\[6015 \rightarrow 1512.97\]</span></p>
 </section>
 </section>
-<section id="third-epoch" class="level3">
-<h3 class="anchored" data-anchor-id="third-epoch">Third Epoch</h3>
+<section id="third-epoch" class="level4">
+<h4 class="anchored" data-anchor-id="third-epoch">Third Epoch</h4>
 <p>from the previous iteration we have <span class="math inline">\(m = 11.11\)</span> and <span class="math inline">\(b = 2.30\)</span></p>
 <p><span class="math display">\[\text{point } a \text{, our } \hat{y} = 11.11\times2 + 2.30 = 24.53\]</span> <span class="math display">\[\text{point } b \text{, our } \hat{y} = 11.11\times3 + 2.30 = 35.65\]</span> <span class="math display">\[\text{point } c \text{, our } \hat{y} = 11.11\times5 + 2.30 = 57.89\]</span> <span class="math display">\[\text{point } d \text{, our } \hat{y} = 11.11\times6 + 2.30 = 69.00\]</span> <span class="math display">\[\text{point } e \text{, our } \hat{y} = 11.11\times8 + 2.30 = 91.24\]</span></p>
 <table class="caption-top table">
@@ -4834,8 +4837,8 @@ if (outputEl) {{
 <p><span class="math inline">\(db = -2 \times 21.33 = -42.66\)</span></p>
 <p><span class="math inline">\(m_{new} = m - \text{learning rate} * dm = 11.11 - 0.01\times(-142.20) = 12.53\)</span></p>
 <p><span class="math inline">\(b_{new} = b - \text{learning rate} * db = 2.30 - 0.01\times(-42.66) = 2.72\)</span></p>
-<section id="calculating-the-loss-2" class="level4">
-<h4 class="anchored" data-anchor-id="calculating-the-loss-2">Calculating the Loss</h4>
+<section id="calculating-the-loss-2" class="level5">
+<h5 class="anchored" data-anchor-id="calculating-the-loss-2">Calculating the Loss</h5>
 <p><span class="math inline">\(\frac{80.92^2+ 103.03^2+ 85.54^2+ 95.95^2 + (- 9.94)^2}{5} = 673.36\)</span></p>
 <p>for this epoch we went lower than the half of the previous epoch <span class="math display">\[1512.97 \rightarrow 673.36\]</span></p>
 </section>
@@ -4916,8 +4919,8 @@ if (outputEl) {{
 </section>
 </section>
 </section>
-<section id="takeaways" class="level1">
-<h1>Takeaways</h1>
+<section id="takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="takeaways">Takeaways</h2>
 <ul>
 <li><strong>Linear Regression</strong> is about finding the line that best represents the trend in your data by minimizing a loss function (like MSE).</li>
 <li><strong>The Gradients</strong> (derived using Calculus) tell us exactly how much and in what direction to nudge our parameters <span class="math inline">\(m\)</span> and <span class="math inline">\(b\)</span> to reduce the error.</li>
@@ -5015,7 +5018,7 @@ if (outputEl) {{
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("git@github\.com:\/migue-rc\/FS-linear-regression\.git");
+        var filterRegex = new RegExp("https:\/\/migue-rc\.github\.io\/FS-linear-regression");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

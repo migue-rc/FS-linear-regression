@@ -1,1 +1,1 @@
-Sitemap: git@github.com:/migue-rc/FS-linear-regression.git/sitemap.xml
+Sitemap: https://migue-rc.github.io/FS-linear-regression/sitemap.xml
